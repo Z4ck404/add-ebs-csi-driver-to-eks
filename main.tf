@@ -20,13 +20,17 @@ variable "eks_cluster_name" {
 ## you can get this by :
 #1- aws eks describe-cluster --name <cluster_name> --query "cluster.identity.oidc.issuer" --output text
 #2- aws iam list-open-id-connect-providers --profile <> --region us-west-1| grep <the_id_from_1>
-variable "eks_oidc_provider_arn" {
-  type = string
-}
+# variable "eks_oidc_provider_arn" {
+#   type = string
+# }
 
 ### data
 data "aws_eks_cluster" "this" {
   name = var.eks_cluster_name
+}
+
+data "aws_iam_openid_connect_provider" "this" {
+  url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
 }
 
 ### IAM roles ebs csi driver
@@ -35,7 +39,7 @@ module "ebs_csi_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.17.0"
 
-  role_name             = "EBS_CSI_Driver_ROLE"
+  role_name             = "ZACK_EBS_CSI_Driver_ROLE"
   attach_ebs_csi_policy = true
 
   attach_vpc_cni_policy = true
@@ -43,7 +47,7 @@ module "ebs_csi_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = var.eks_oidc_provider_arn
+      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
     }
   }
