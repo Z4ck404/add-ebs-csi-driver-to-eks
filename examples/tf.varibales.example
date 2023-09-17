@@ -1,4 +1,3 @@
 aws_profile           = "zack-aws-profile"
 aws_region            = "us-west-1"
 eks_cluster_name      = "zack-eks"
-eks_oidc_provider_arn = "arn:aws:iam::<aws_account_id>:oidc-provider/oidc.eks.us-west-1.amazonaws.com/id/<OIDC_ID_example>"
