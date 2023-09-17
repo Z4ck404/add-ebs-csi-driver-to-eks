@@ -17,13 +17,6 @@ variable "eks_cluster_name" {
   type = string
 }
 
-## you can get this by :
-#1- aws eks describe-cluster --name <cluster_name> --query "cluster.identity.oidc.issuer" --output text
-#2- aws iam list-open-id-connect-providers --profile <> --region us-west-1| grep <the_id_from_1>
-# variable "eks_oidc_provider_arn" {
-#   type = string
-# }
-
 ### data
 data "aws_eks_cluster" "this" {
   name = var.eks_cluster_name
