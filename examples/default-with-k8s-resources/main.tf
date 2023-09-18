@@ -45,14 +45,14 @@ resource "kubernetes_pod" "pod-with-pvc" {
       image = nginx
       port {
         container_port = "80"
-        name = "http-server"
+        name           = "http-server"
       }
       volume_mount {
-        name = "pv-test-ebs-csi"
+        name       = "pv-test-ebs-csi"
         mount_path = "/usr/share/nginx/html"
       }
     }
   }
-  depends_on = [ kubernetes_persistent_volume.pv-test-ebs-csi ]
+  depends_on = [kubernetes_persistent_volume.pv-test-ebs-csi]
 }
 
