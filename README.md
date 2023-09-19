@@ -1,6 +1,6 @@
 ## add-ebs-csi-driver-to-eks
 
-Create the IAM resources for the EBS CSI Driver and install the add-on on ab existing EKS cluster.
+Create the IAM resources for the EBS CSI Driver and install the add-on on an existing EKS cluster.
 
 ## Usage
 
