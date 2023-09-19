@@ -17,7 +17,7 @@ module "eks-ebs-csi-driver" {
 ## Examples:
 
 You can find examples in `/examples`.
-The exmaple `/examples/default-with-k8s-resources` creates a pvc and a pod to test if the csi in installed and working properly.
+The example `/examples/default-with-k8s-resources` creates a pvc and a pod to test if the csi in installed and working properly.
 
 ## The module:
 <!-- BEGIN_TF_DOCS -->
