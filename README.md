@@ -1,12 +1,25 @@
 ## add-ebs-csi-driver-to-eks
 
-1- run `terraform init && terraform appy` to install the required resources
+Create the IAM resources for the EBS CSI Driver and install the add-on on ab existing EKS cluster.
 
-2- make sure it works by installing the resources in `/examples`:
+## Usage
 
-    - `k apply -f examples/pvc.yaml -n kube-system`
+```
+module "eks-ebs-csi-driver" {
+  source           = "Z4ck404/eks-ebs-csi-driver/aws"
+  version          = "0.0.3"
+  aws_profile      = "zack-aws-profile"
+  aws_region       = "us-west-1"
+  eks_cluster_name = "zack-eks"
+}
+```
 
-    - `k apply -f examples/pod.yaml -n kube-system`
+## Examples:
+
+You can find examples in `/examples`.
+The exmaple `/examples/default-with-k8s-resources` creates a pvc and a pod to test if the csi in installed and working properly.
+
+## The module:
 <!-- BEGIN_TF_DOCS -->
 ### Requirements
 
