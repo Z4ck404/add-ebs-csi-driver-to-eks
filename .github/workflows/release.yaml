@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions: 
       contents: write
-      id-token: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
