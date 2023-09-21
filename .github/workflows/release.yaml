@@ -4,13 +4,16 @@ on:
       - main
     tags:
       - 'v*'
-permissions: read-all
+
 name: Create Release
 
 jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+      id-token: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
