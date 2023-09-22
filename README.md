@@ -4,15 +4,32 @@ Create the IAM resources for the EBS CSI Driver and install the add-on on an exi
 
 ## Usage
 
-```
-module "eks-ebs-csi-driver" {
-  source           = "Z4ck404/eks-ebs-csi-driver/aws"
-  version          = "0.0.3"
-  aws_profile      = "zack-aws-profile"
-  aws_region       = "us-west-1"
-  eks_cluster_name = "zack-eks"
-}
-```
+- version `0.0.x`
+  ```diff
+  module "eks-ebs-csi-driver" {
+    source           = "Z4ck404/eks-ebs-csi-driver/aws"
+    version          = "0.0.6"
+
+    aws_profile      = "zack-aws-profile"
+    aws_region       = "us-west-1"
+    eks_cluster_name = "zack-eks"
+  }
+  ```
+
+- version `0.1.x`
+  ```diff
+  module "eks-ebs-csi-driver" {
+    source           = "Z4ck404/eks-ebs-csi-driver/aws"
+    version          = "0.1.0"
+
+    aws_profile      = "zack-aws-profile"
+    aws_region       = "us-west-1"
+    eks_cluster_name = "zack-eks"
+
+  + install_vpc_cni_addon = true
+  }
+  ```
+  The module will also install the `aws_vpc_cni` add on if the variables `install_vpc_cni_addon` is set to `true` (defaults to `false`).
 
 ## Examples:
 
@@ -23,9 +40,7 @@ The example `/examples/default-with-k8s-resources` creates a pvc and a pod to te
 <!-- BEGIN_TF_DOCS -->
 ### Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0.0 |
+No requirements.
 
 ### Providers
 
@@ -38,13 +53,16 @@ The example `/examples/default-with-k8s-resources` creates a pvc and a pod to te
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ebs_csi_irsa_role"></a> [ebs\_csi\_irsa\_role](#module\_ebs\_csi\_irsa\_role) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.17.0 |
+| <a name="module_vpc_cni_ipv4_irsa_role"></a> [vpc\_cni\_ipv4\_irsa\_role](#module\_vpc\_cni\_ipv4\_irsa\_role) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.17.0 |
 
 ### Resources
 
 | Name | Type |
 |------|------|
 | [aws_eks_addon.ebs_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.vpc-cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) | resource |
 | [aws_eks_addon_version.ebs_csi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.vpc-cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_iam_openid_connect_provider.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_openid_connect_provider) | data source |
 
@@ -52,9 +70,10 @@ The example `/examples/default-with-k8s-resources` creates a pvc and a pod to te
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | n/a | `string` | n/a | yes |
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | ## variables | `string` | n/a | yes |
+| <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | n/a | `string` | `""` | no |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | n/a | yes |
 | <a name="input_eks_cluster_name"></a> [eks\_cluster\_name](#input\_eks\_cluster\_name) | n/a | `string` | n/a | yes |
+| <a name="input_install_vpc_cni_addon"></a> [install\_vpc\_cni\_addon](#input\_install\_vpc\_cni\_addon) | n/a | `bool` | `false` | no |
 
 ### Outputs
 
