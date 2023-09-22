@@ -1,12 +1,12 @@
 provider "aws" {
   region  = "us-west-1"
-  profile = "zack-aws-profile"
+  profile = "bigdata-labs"
 }
 
 module "add-ebs-csi-driver" {
   source = "../.."
 
-  aws_profile      = "zack-aws-profile"
+  aws_profile      = "bigdata-labs"
   aws_region       = "us-west-1"
-  eks_cluster_name = "zack-eks"
+  eks_cluster_name = "telemetry-zack"
 }
