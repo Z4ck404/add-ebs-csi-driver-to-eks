@@ -37,19 +37,15 @@ You can find examples in `/examples`.
 The example `/examples/default-with-k8s-resources` creates a pvc and a pod to test if the csi in installed and working properly.
 
 ## Troubleshooting:
-1.
-```
-Q: I applied the terraform, everything seems to be created and installed correctly but the `csi driver` still throws an *unauthorized* error, why ?
+
+#### 1. I applied the terraform, everything seems to be created and installed correctly but the `csi driver` still throws an *unauthorized* error, why ?
 
 A: It could be because of an explicit deny tp create EBS volumes in a CSP policy, make sure to check that.
 
-```
-2.
-```
-Q: I applied the terraform, everything seems to be created and installed correctly but driver fails to provision the volume and throws an error of type `Parameters on this idempotent request are inconsistent with parameters used in previous request(s)`
+#### 2. I applied the terraform, everything seems to be created and installed correctly but driver fails to provision the volume and throws an error of type `Parameters on this idempotent request are inconsistent with parameters used in previous request(s)`
 
 A: It could be because you enabled automatic automatic encryption of EBS volumes with a specific KMS key that the IAM role the terraform created for the driver doesn't have access to. Make sure to allow the role to use the KMS key used to encrypt EBS volumes. Support for that will be added to this module in the future.
-```
+
 
 ## The module:
 <!-- BEGIN_TF_DOCS -->
