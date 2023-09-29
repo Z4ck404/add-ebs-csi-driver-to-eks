@@ -2,7 +2,7 @@ variable "aws_region" {
   type = string
 }
 variable "aws_profile" {
-  type = string
+  type    = string
   default = ""
 }
 
@@ -11,6 +11,11 @@ variable "eks_cluster_name" {
 }
 
 variable "install_vpc_cni_addon" {
-  type = bool
+  type    = bool
   default = false
+}
+
+variable "aws_kms_key_arn" {
+  type    = string
+  default = ""
 }
