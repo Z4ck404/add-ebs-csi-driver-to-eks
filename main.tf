@@ -3,7 +3,7 @@ module "ebs_csi_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.17.0"
 
-  role_name             = "EBS_CSI_Driver_ROLE"
+  role_name             = "${var.eks_cluster_name}_EBS_CSI_Driver_ROLE"
   attach_ebs_csi_policy = true
 
   attach_vpc_cni_policy = true
@@ -23,7 +23,7 @@ module "vpc_cni_ipv4_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.17.0"
 
-  role_name             = "VPC_CNI_Addon_ROLE"
+  role_name             = "${var.eks_cluster_name}-VPC_CNI_Addon_ROLE"
   attach_vpc_cni_policy = true
   vpc_cni_enable_ipv4   = true
   vpc_cni_enable_ipv6   = true
@@ -47,7 +47,7 @@ resource "aws_eks_addon" "ebs_csi" {
   service_account_role_arn = module.ebs_csi_irsa_role.iam_role_arn
 }
 resource "aws_eks_addon" "vpc-cni" {
-  count = var.install_vpc_cni_addon ? 1 : 0
+  count             = var.install_vpc_cni_addon ? 1 : 0
   cluster_name      = data.aws_eks_cluster.this.id
   addon_name        = "vpc-cni"
   addon_version     = data.aws_eks_addon_version.vpc-cni.version
