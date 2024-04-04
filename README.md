@@ -20,7 +20,6 @@ Create the IAM resources for the EBS CSI Driver and install the add-on on an exi
   ```diff
   module "eks-ebs-csi-driver" {
     source           = "Z4ck404/eks-ebs-csi-driver/aws"
-    version          = "0.1.0"
 
     aws_profile      = "zack-aws-profile"
     aws_region       = "us-west-1"
