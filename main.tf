@@ -21,7 +21,7 @@ module "vpc_cni_ipv4_irsa_role" {
   count = var.install_vpc_cni_addon ? 1 : 0
 
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.17.0"
+  version = "5.41.0"
 
   role_name             = "${var.eks_cluster_name}-VPC_CNI_Addon_ROLE"
   attach_vpc_cni_policy = true
